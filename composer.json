@@ -1,0 +1,55 @@
+{
+  "description": "A test task completion for REG.RU",
+  "authors": [
+    {
+      "name": "Vladislav O. Muschinskikh",
+      "email": "i@vlad.guru",
+      "role": "developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=7.0",
+    "vlucas/phpdotenv": "*",
+    "yiisoft/yii2": "~2.0.13",
+    "yiisoft/yii2-bootstrap": "*"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    }
+  },
+  "extra": {
+    "yii\\composer\\Installer::postInstall": {
+      "setPermission": [
+        {
+          "app/runtime": "0777",
+          "public/assets": "0777",
+          "yii.php": "0755"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "yii\\composer\\Installer::postCreateProject",
+      "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-install-cmd": [
+      "yii\\composer\\Installer::postInstall"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "app\\": "app/"
+    }
+  }
+}
